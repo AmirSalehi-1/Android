@@ -1,35 +1,31 @@
 package com.example.lab05_01;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lab05_01.R;
-
-/**
- * @author Amir
- * @version 1
- */
 public class MainActivity extends AppCompatActivity {
-    /**this hold text at the center */
-    private TextView tv=null;
-    /** this is for our password */
-    private TextView tv2=null;
-    /**this is for our login */
-    private Button btn=null;
+    private TextView tv;
+    private EditText editText;
+    private Button btn;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         tv = findViewById(R.id.textView);
-        tv2 = findViewById(R.id.password);
+        editText = findViewById(R.id.editText);
         btn = findViewById(R.id.button);
 
         btn.setOnClickListener(clk -> {
-            String password = tv2.getText().toString();
+            String password = editText.getText().toString();
             boolean isComplex = checkPasswordComplexity(password);
             if (isComplex) {
                 tv.setText("Your password meets the requirements");
@@ -38,12 +34,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    /**
-     * This function is for checking the password
-     * @param pw the password to be checked
-     * @return true if password meets all complexity requirements, false otherwise.
-     */
-    boolean checkPasswordComplexity(String pw){
+
+    boolean checkPasswordComplexity(String pw) {
         boolean foundUpperCase, foundLowerCase, foundNumber, foundSpecial;
 
         foundUpperCase = foundLowerCase = foundNumber = foundSpecial = false;
@@ -77,14 +69,8 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    /**
-     * This method checks if the character is a special character.
-     *
-     * @param c The character to be checked.
-     * @return true if the character is a special character, false otherwise.
-     */
-    boolean isSpecialCharacter(char c){
-        switch(c) {
+    boolean isSpecialCharacter(char c) {
+        switch (c) {
             case '#':
             case '$':
             case '%':
